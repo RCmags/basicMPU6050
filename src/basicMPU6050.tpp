@@ -49,7 +49,7 @@ template<TEMPLATE_TYPE>
 void basicMPU6050<TEMPLATE_INPUTS>
 ::setup() {
   // Turn on communication
-  Wire.begin()
+  Wire.begin();
 	
   // Enable sensor	
   setRegister( 0x6B, 0x00 );

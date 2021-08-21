@@ -11,7 +11,7 @@ The second function is designed to update the averages. It updates the values wi
 
 Finally, the library was written for a single MPU6050 connected to a MEGA board as follows. It may require some modifications to work succesfully on other boards:   
 
-<img src = "https://www.prometec.net/wp-content/uploads/2015/10/MPU-6050-Board-GY-521-MEGA_bb.png" width = "60%"></img>   
+<img src = "https://raw.githubusercontent.com/RCmags/basicMPU6050/main/extras/mega_schematic.png" width = "60%"></img>   
 
 See this link for the information on the registers of the MPU6050: 
 [MPU 6050 register map](https://invensense.tdk.com/wp-content/uploads/2015/02/MPU-6000-Register-Map1.pdf)

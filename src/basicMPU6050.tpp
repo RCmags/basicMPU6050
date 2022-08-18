@@ -2,23 +2,23 @@
 
 template<TEMPLATE_TYPE>
 const int basicMPU6050<TEMPLATE_INPUTS>
-::MPU_ADDRESS = ADDRESS_A0 == HIGH ? MPU_ADDRESS_HIGH : MPU_ADDRESS_LOW;		
+::MPU_ADDRESS = ADDRESS_A0 == HIGH ? MPU_ADDRESS_HIGH : MPU_ADDRESS_LOW;        
 
 template<TEMPLATE_TYPE>
 const float basicMPU6050<TEMPLATE_INPUTS>
-::MEAN = 1.0/float(N_BIAS);									// Inverse of sample count 
+::MEAN = 1.0/float(N_BIAS);                                 // Inverse of sample count 
 
 template<TEMPLATE_TYPE>
 const float basicMPU6050<TEMPLATE_INPUTS>
-::ACCEL_LBS = AFS_SEL < 0 || AFS_SEL >  3 ? 1         : 	// Scaling factor for accelerometer. Depends on sensitivity setting.
-                       1.0/( AFS_SEL == 0 ? 16384.0   :		// Output is in: g 
+::ACCEL_LBS = AFS_SEL < 0 || AFS_SEL >  3 ? 1         :     // Scaling factor for accelerometer. Depends on sensitivity setting.
+                       1.0/( AFS_SEL == 0 ? 16384.0   :     // Output is in: g 
                              AFS_SEL == 1 ? 8192.0    :
                              AFS_SEL == 2 ? 4096.0    :
                                             2048.0    );
 template<TEMPLATE_TYPE>
 const float basicMPU6050<TEMPLATE_INPUTS>
-::GYRO_LBS = FS_SEL < 0 || FS_SEL >  3 ? 1      :			// Scaling factor for gyro. Depends on sensitivity setting. 
-              (PI/180.0)/( FS_SEL == 0 ? 131.0  :			// Output is in: rad/s
+::GYRO_LBS = FS_SEL < 0 || FS_SEL >  3 ? 1      :           // Scaling factor for gyro. Depends on sensitivity setting. 
+              (PI/180.0)/( FS_SEL == 0 ? 131.0  :           // Output is in: rad/s
                            FS_SEL == 1 ? 65.5   :
                            FS_SEL == 2 ? 32.8   :
                                          16.4   );
@@ -54,8 +54,8 @@ void basicMPU6050<TEMPLATE_INPUTS>
 ::setup() {
   // Turn on communication
   Wire.begin();
-	
-  // Enable sensor	
+    
+  // Enable sensor  
   setRegister( 0x6B, 0x00 );
   
   // Low pass filter
@@ -194,8 +194,8 @@ void basicMPU6050<TEMPLATE_INPUTS>
   for( int count = 0; count < N_BIAS; count += 1 ) { 
     int gyro[] = { rawGx(), rawGy(), rawGz() };
     
-	// Sum all samples
-	for( int index = 0; index < N_AXIS; index += 1 ) {
+    // Sum all samples
+    for( int index = 0; index < N_AXIS; index += 1 ) {
       mean[index] += float( gyro[index] ); 
     } 
   }
@@ -220,7 +220,7 @@ void basicMPU6050<TEMPLATE_INPUTS>
   float mag = dw[0]*dw[0] + dw[1]*dw[1] + dw[2]*dw[2];
   float gain = BAND_SQ/( BAND_SQ + var + mag );
   
-  var += mag + (gain - 1)*var;								// covariance in the magnitude of gyro signal
+  var += mag + (gain - 1)*var;                              // covariance in the magnitude of gyro signal
 
   // Update mean with gain
   for( int index = 0; index < N_AXIS; index += 1 ) {  

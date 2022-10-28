@@ -9,7 +9,7 @@
 // Sensor values
 #define             MPU_ADDRESS_LOW     0x68                
 #define             MPU_ADDRESS_HIGH    0x69
-#define             ACCEL_LBS_0         16384.0
+#define             ACCEL_LSB_0         16384.0
 #define             N_AXIS              3
 
 //---------------- Default settings ------------------ [ No characters after backlash! ]
@@ -79,8 +79,8 @@ class basicMPU6050 {
     
     // Common settings
     static const int MPU_ADDRESS;
-    static const float ACCEL_LBS;
-    static const float GYRO_LBS;
+    static const float ACCEL_LSB;
+    static const float GYRO_LSB;
     static const float MEAN;
     
     // I2C communication

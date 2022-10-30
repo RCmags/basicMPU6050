@@ -40,7 +40,7 @@ void basicMPU6050<TEMPLATE_INPUTS>
   Wire.beginTransmission(MPU_ADDRESS);        
   Wire.write(reg);                                                   
   Wire.endTransmission();                                               
-  Wire.requestFrom(MPU_ADDRESS, 2, true);       
+  Wire.requestFrom(static_cast<uint8_t>(MPU_ADDRESS), static_cast<size_t>(2), true);       
 }
 
 template<TEMPLATE_TYPE>

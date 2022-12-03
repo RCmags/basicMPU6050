@@ -1,19 +1,23 @@
 //--------------------- Constants --------------------
 
 template<TEMPLATE_TYPE>
+const int basicMPU6050<TEMPLATE_INPUTS>
+::MPU_ADDRESS = ADDRESS_A0 == HIGH ? MPU_ADDRESS_HIGH : MPU_ADDRESS_LOW;        
+
+template<TEMPLATE_TYPE>
 const float basicMPU6050<TEMPLATE_INPUTS>
 ::MEAN = 1.0/float(N_BIAS);                                 // Inverse of sample count 
 
 template<TEMPLATE_TYPE>
 const float basicMPU6050<TEMPLATE_INPUTS>
-::ACCEL_LBS = AFS_SEL < 0 || AFS_SEL >  3 ? 1         :     // Scaling factor for accelerometer. Depends on sensitivity setting.
+::ACCEL_LSB = AFS_SEL < 0 || AFS_SEL >  3 ? 1         :     // Scaling factor for accelerometer. Depends on sensitivity setting.
                        1.0/( AFS_SEL == 0 ? 16384.0   :     // Output is in: g 
                              AFS_SEL == 1 ? 8192.0    :
                              AFS_SEL == 2 ? 4096.0    :
                                             2048.0    );
 template<TEMPLATE_TYPE>
 const float basicMPU6050<TEMPLATE_INPUTS>
-::GYRO_LBS = FS_SEL < 0 || FS_SEL >  3 ? 1      :           // Scaling factor for gyro. Depends on sensitivity setting. 
+::GYRO_LSB = FS_SEL < 0 || FS_SEL >  3 ? 1      :           // Scaling factor for gyro. Depends on sensitivity setting. 
               (PI/180.0)/( FS_SEL == 0 ? 131.0  :           // Output is in: rad/s
                            FS_SEL == 1 ? 65.5   :
                            FS_SEL == 2 ? 32.8   :
@@ -33,10 +37,10 @@ void basicMPU6050<TEMPLATE_INPUTS>
 template<TEMPLATE_TYPE>
 void basicMPU6050<TEMPLATE_INPUTS>
 ::readRegister( uint8_t reg ) {
-  Wire.beginTransmission(MPU_ADDRESS);                                       
+  Wire.beginTransmission(MPU_ADDRESS);        
   Wire.write(reg);                                                   
   Wire.endTransmission();                                               
-  Wire.requestFrom( MPU_ADDRESS, 2, true );       
+  Wire.requestFrom(static_cast<uint8_t>(MPU_ADDRESS), static_cast<size_t>(2), true);       
 }
 
 template<TEMPLATE_TYPE>
@@ -48,9 +52,9 @@ int basicMPU6050<TEMPLATE_INPUTS>
 template<TEMPLATE_TYPE>
 void basicMPU6050<TEMPLATE_INPUTS>
 ::setup() {
-  // Enable communication
+  // Turn on communication
   Wire.begin();
-	
+    
   // Enable sensor  
   setRegister( 0x6B, 0x00 );
   
@@ -129,8 +133,8 @@ int basicMPU6050<TEMPLATE_INPUTS>
 template<TEMPLATE_TYPE>
 float basicMPU6050<TEMPLATE_INPUTS>
 ::ax() {
-  const float SCALE  = (*AX_S) * ACCEL_LBS;
-  const float OFFSET = (*AX_S) * float(AX_OFS)/ACCEL_LBS_0;   
+  const float SCALE  = (*AX_S) * ACCEL_LSB;
+  const float OFFSET = (*AX_S) * float(AX_OFS)/ACCEL_LSB_0;   
   
   return float( rawAx() )*SCALE - OFFSET;       
 }
@@ -138,8 +142,8 @@ float basicMPU6050<TEMPLATE_INPUTS>
 template<TEMPLATE_TYPE>
 float basicMPU6050<TEMPLATE_INPUTS>
 ::ay() {
-  const float SCALE  = (*AY_S) * ACCEL_LBS;
-  const float OFFSET = (*AY_S) * float(AY_OFS)/ACCEL_LBS_0;  
+  const float SCALE  = (*AY_S) * ACCEL_LSB;
+  const float OFFSET = (*AY_S) * float(AY_OFS)/ACCEL_LSB_0;  
   
   return float( rawAy() )*SCALE - OFFSET;         
 }
@@ -147,8 +151,8 @@ float basicMPU6050<TEMPLATE_INPUTS>
 template<TEMPLATE_TYPE>
 float basicMPU6050<TEMPLATE_INPUTS>
 ::az() {  
-  const float SCALE  = (*AZ_S) * ACCEL_LBS;
-  const float OFFSET = (*AZ_S) * float(AZ_OFS)/ACCEL_LBS_0; 
+  const float SCALE  = (*AZ_S) * ACCEL_LSB;
+  const float OFFSET = (*AZ_S) * float(AZ_OFS)/ACCEL_LSB_0; 
   
   return float( rawAz() )*SCALE - OFFSET;         
 }
@@ -165,20 +169,20 @@ float basicMPU6050<TEMPLATE_INPUTS>
 template<TEMPLATE_TYPE>
 float basicMPU6050<TEMPLATE_INPUTS>
 ::gx() {
-  const float SCALE = (*GX_S) * GYRO_LBS;
+  const float SCALE = (*GX_S) * GYRO_LSB;
   return ( float( rawGx() ) - mean[0] )*SCALE;  
 }
 template<TEMPLATE_TYPE>
 float basicMPU6050<TEMPLATE_INPUTS>
 ::gy() {
-  const float SCALE = (*GY_S) * GYRO_LBS;
+  const float SCALE = (*GY_S) * GYRO_LSB;
   return ( float( rawGy() ) - mean[1] )*SCALE;  
 }
 
 template<TEMPLATE_TYPE>
 float basicMPU6050<TEMPLATE_INPUTS>
 ::gz() {
-  const float SCALE = (*GZ_S) * GYRO_LBS;
+  const float SCALE = (*GZ_S) * GYRO_LSB;
   return ( float( rawGz() ) - mean[2] )*SCALE;  
 }
 

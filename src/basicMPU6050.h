@@ -7,20 +7,18 @@
 //------------------ Common terms -------------------- 
 
 // Sensor values
-#define             MPU_ADDRESS_LOW     0x68                
-#define             MPU_ADDRESS_HIGH    0x69
-#define             ACCEL_LSB_0         16384.0
-#define             N_AXIS              3
+#define             MPU_ADDRESS     0x68                
+#define             ACCEL_LBS_0     16384.0
+#define             N_AXIS          3
 
 //---------------- Default settings ------------------ [ No characters after backlash! ]
 
 constexpr float     DEFAULT_SCALE = 1;                  // Default scale of Gyro and Accelerometer
 
-#define TEMPLATE_DEFAULT                            \
+#define TEMPLATE_DEFAULT                       		\
     uint8_t         DLPF_CFG    = 6                 ,   /* Low pass filter setting - 0 to 6         */  \
     uint8_t         FS_SEL      = 0                 ,   /* Gyro sensitivity - 0 to 3                */  \
     uint8_t         AFS_SEL     = 0                 ,   /* Accelerometer sensitivity - 0 to 3       */  \
-    bool            ADDRESS_A0  = LOW               ,   /* State of A0 pin to set I2C address       */  \
     int16_t         AX_OFS      = 0                 ,   /* Accel X offset                           */  \
     int16_t         AY_OFS      = 0                 ,   /* Accel Y offset                           */  \
     int16_t         AZ_OFS      = 0                 ,   /* Accel Z offset                           */  \
@@ -35,11 +33,10 @@ constexpr float     DEFAULT_SCALE = 1;                  // Default scale of Gyro
 
 //--------------- Template Parameters ---------------- [ No characters after backlash! ]
     
-#define TEMPLATE_TYPE                               \
+#define TEMPLATE_TYPE		                        \
     uint8_t         DLPF_CFG                        ,\
     uint8_t         FS_SEL                          ,\
     uint8_t         AFS_SEL                         ,\
-    bool            ADDRESS_A0                      ,\
     int16_t         AX_OFS                          ,\
     int16_t         AY_OFS                          ,\
     int16_t         AZ_OFS                          ,\
@@ -56,7 +53,6 @@ constexpr float     DEFAULT_SCALE = 1;                  // Default scale of Gyro
                     DLPF_CFG                        ,\
                     FS_SEL                          ,\
                     AFS_SEL                         ,\
-                    ADDRESS_A0                      ,\
                     AX_OFS                          ,\
                     AY_OFS                          ,\
                     AZ_OFS                          ,\
@@ -78,9 +74,8 @@ class basicMPU6050 {
     float var = 0;
     
     // Common settings
-    static const int MPU_ADDRESS;
-    static const float ACCEL_LSB;
-    static const float GYRO_LSB;
+    static const float ACCEL_LBS;
+    static const float GYRO_LBS;
     static const float MEAN;
     
     // I2C communication
@@ -127,5 +122,11 @@ class basicMPU6050 {
 };
 
 #include "basicMPU6050.tpp"
+ 
+//----------------- Clearing labels ------------------ 
+ 
+#undef TEMPLATE_TYPE
+#undef TEMPLATE_INPUTS
+#undef TEMPLATE_DEFAULT
  
 #endif

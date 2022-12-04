@@ -2,3 +2,5 @@ basicMPU6050	KEYWORD1
 setup	KEYWORD2
 setBias	KEYWORD2
 updateBias	KEYWORD2
+
+# NOTE: seperate keywords with single tab

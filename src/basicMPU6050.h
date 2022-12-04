@@ -78,14 +78,14 @@ class basicMPU6050 {
     float var = 0;
     
     // Common settings
-    static const int MPU_ADDRESS;
+    static const uint8_t MPU_ADDRESS;
     static const float ACCEL_LSB;
     static const float GYRO_LSB;
     static const float MEAN;
     
     // I2C communication
     void setRegister(uint8_t, uint8_t);
-    void readRegister( uint8_t );
+    void readRegister(uint8_t);
     int readWire();
 
    public: 

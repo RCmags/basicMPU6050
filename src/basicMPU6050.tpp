@@ -1,7 +1,7 @@
 //--------------------- Constants --------------------
 
 template<TEMPLATE_TYPE>
-const int basicMPU6050<TEMPLATE_INPUTS>
+const uint8_t basicMPU6050<TEMPLATE_INPUTS>
 ::MPU_ADDRESS = ADDRESS_A0 == HIGH ? MPU_ADDRESS_HIGH : MPU_ADDRESS_LOW;        
 
 template<TEMPLATE_TYPE>
@@ -40,7 +40,7 @@ void basicMPU6050<TEMPLATE_INPUTS>
   Wire.beginTransmission(MPU_ADDRESS);        
   Wire.write(reg);                                                   
   Wire.endTransmission();                                               
-  Wire.requestFrom(static_cast<uint8_t>(MPU_ADDRESS), static_cast<size_t>(2), true);       
+  Wire.requestFrom( MPU_ADDRESS, uint8_t(2), uint8_t(true) );  
 }
 
 template<TEMPLATE_TYPE>

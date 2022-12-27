@@ -10,7 +10,7 @@
 #define         LP_FILTER   3           // Low pass filter.                    Value from 0 to 6
 #define         GYRO_SENS   0           // Gyro sensitivity.                   Value from 0 to 3
 #define         ACCEL_SENS  0           // Accelerometer sensitivity.          Value from 0 to 3
-#define         ADDRESS_A0  HIGH        // I2C address from state of A0 pin.   A0 -> GND : ADDRESS_A0 = LOW
+#define         ADDRESS_A0  LOW         // I2C address from state of A0 pin.   A0 -> GND : ADDRESS_A0 = LOW
                                         //                                     A0 -> 5v  : ADDRESS_A0 = HIGH
 // Accelerometer offset:
 constexpr int   AX_OFFSET =  552;       // Use these values to calibrate the accelerometer. The sensor should output 1.0g if held level. 

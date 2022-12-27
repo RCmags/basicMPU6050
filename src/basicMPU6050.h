@@ -30,8 +30,8 @@ constexpr float     DEFAULT_SCALE = 1;                  // Default scale of Gyro
     const float*    GX_S        = &DEFAULT_SCALE    ,   /* Gyro X Multiplier                        */  \
     const float*    GY_S        = &DEFAULT_SCALE    ,   /* Gyro Y Multiplier                        */  \
     const float*    GZ_S        = &DEFAULT_SCALE    ,   /* Gyro Z Multiplier                        */  \
-    uint16_t        GYRO_BAND   = 16                ,   /* Standard deviation of gyro signals       */  \
-    uint32_t        N_BIAS      = 10000                 /* Samples of average used to calibrate gyro*/  
+    uint16_t        GYRO_BAND   = 64                ,   /* Standard deviation of raw gyro signals   */  \
+    uint32_t        N_BIAS      = 5000                  /* Samples of average used to calibrate gyro*/  
 
 //--------------- Template Parameters ---------------- [ No characters after backlash! ]
     
@@ -75,7 +75,7 @@ template <TEMPLATE_DEFAULT>
 class basicMPU6050 {
    private:       
     float mean[N_AXIS] = {0};    
-    float var = 0;
+    float var[N_AXIS] = {0};
     
     // Common settings
     static const uint8_t MPU_ADDRESS;

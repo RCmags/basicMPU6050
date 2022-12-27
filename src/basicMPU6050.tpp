@@ -193,6 +193,7 @@ void basicMPU6050<TEMPLATE_INPUTS>
 ::setBias() {
   for( int count = 0; count < N_BIAS; count += 1 ) { 
     int gyro[] = { rawGx(), rawGy(), rawGz() };
+    delayMicroseconds(250);
     
     // Sum all samples
     for( int index = 0; index < N_AXIS; index += 1 ) {
@@ -209,21 +210,21 @@ void basicMPU6050<TEMPLATE_INPUTS>
 template<TEMPLATE_TYPE>
 void basicMPU6050<TEMPLATE_INPUTS>
 ::updateBias() {
-  const float BAND_SQ = GYRO_BAND*GYRO_BAND;
+  constexpr float BAND_SQ = GYRO_BAND*GYRO_BAND;
   
-  // Error in reading
+  // error in measurement
   float dw[N_AXIS] = { rawGx() - mean[0] ,
                        rawGy() - mean[1] , 
                        rawGz() - mean[2] };
   
-  // Calculate kalman gain
-  float mag = dw[0]*dw[0] + dw[1]*dw[1] + dw[2]*dw[2];
-  float gain = BAND_SQ/( BAND_SQ + var + mag );
-  
-  var += mag + (gain - 1)*var;                              // covariance in the magnitude of gyro signal
-
-  // Update mean with gain
+  // update mean with kalman gain
   for( int index = 0; index < N_AXIS; index += 1 ) {  
-    mean[index] += dw[index]*gain * MEAN;
+    float error_sq = dw[index] * dw[index] / BAND_SQ;
+    
+    float gain = MEAN/( 1 + var[index]*var[index] );
+    
+    var[index] = error_sq + var[index]*gain;
+    
+    mean[index] += dw[index] * gain;
   }
 }

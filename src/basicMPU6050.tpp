@@ -44,7 +44,7 @@ void basicMPU6050<TEMPLATE_INPUTS>
 }
 
 template<TEMPLATE_TYPE>
-int basicMPU6050<TEMPLATE_INPUTS>
+int16_t basicMPU6050<TEMPLATE_INPUTS>
 ::readWire() {
   return int( Wire.read()<<8|Wire.read() );
 }
@@ -77,21 +77,21 @@ void basicMPU6050<TEMPLATE_INPUTS>
  
 // Acceleration
 template<TEMPLATE_TYPE>
-int basicMPU6050<TEMPLATE_INPUTS>
+int16_t basicMPU6050<TEMPLATE_INPUTS>
 ::rawAx() {
   readRegister( 0x3B );
   return readWire();       
 }
 
 template<TEMPLATE_TYPE>
-int basicMPU6050<TEMPLATE_INPUTS>
+int16_t basicMPU6050<TEMPLATE_INPUTS>
 ::rawAy() {
   readRegister( 0x3D );
   return readWire();
 }
 
 template<TEMPLATE_TYPE>
-int basicMPU6050<TEMPLATE_INPUTS>
+int16_t basicMPU6050<TEMPLATE_INPUTS>
 ::rawAz() {
   readRegister( 0x3F );
   return readWire();
@@ -99,7 +99,7 @@ int basicMPU6050<TEMPLATE_INPUTS>
 
 // Temperature
 template<TEMPLATE_TYPE>
-int basicMPU6050<TEMPLATE_INPUTS>
+int16_t basicMPU6050<TEMPLATE_INPUTS>
 ::rawTemp() {
   readRegister( 0x41 );                                                                                                           
   return readWire();                                 
@@ -107,21 +107,21 @@ int basicMPU6050<TEMPLATE_INPUTS>
 
 // Gyro
 template<TEMPLATE_TYPE>
-int basicMPU6050<TEMPLATE_INPUTS>
+int16_t basicMPU6050<TEMPLATE_INPUTS>
 ::rawGx() {
   readRegister( 0x43 );   
   return readWire();    
 }
 
 template<TEMPLATE_TYPE>
-int basicMPU6050<TEMPLATE_INPUTS>
+int16_t basicMPU6050<TEMPLATE_INPUTS>
 ::rawGy() {
   readRegister( 0x45 );
   return readWire();
 }
 
 template<TEMPLATE_TYPE>
-int basicMPU6050<TEMPLATE_INPUTS>
+int16_t basicMPU6050<TEMPLATE_INPUTS>
 ::rawGz() {
   readRegister( 0x47 );
   return readWire();

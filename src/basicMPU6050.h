@@ -86,7 +86,7 @@ class basicMPU6050 {
     // I2C communication
     void setRegister(uint8_t, uint8_t);
     void readRegister(uint8_t);
-    int readWire();
+    int16_t readWire();
 
    public: 
     void setup();
@@ -94,17 +94,17 @@ class basicMPU6050 {
     //-- Raw measurements
     
     // Accel
-    int rawAx();
-    int rawAy();
-    int rawAz();
+    int16_t rawAx();
+    int16_t rawAy();
+    int16_t rawAz();
 
     // Temp
-    int rawTemp();
+    int16_t rawTemp();
 
     // Gyro
-    int rawGx();
-    int rawGy();
-    int rawGz();
+    int16_t rawGx();
+    int16_t rawGy();
+    int16_t rawGz();
 
     //-- Scaled measurements
 
